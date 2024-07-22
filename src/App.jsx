@@ -9,14 +9,17 @@ import ForgotPass from './pages/Auth/ForgotPass'
 import { useState } from 'react'
 import { ToastAPI } from './contexts/ToastContext'
 import Dashboard from './pages/Dashboard/Dashboard'
-
+import AlertToast from './components/AlertToast'
+import { CookiesProvider } from 'react-cookie';
 function App() {
-  const [toast, settoast] = useState({message:"",state:false})
+  const [toast, settoast] = useState({message:"",state:false,type:"error"})
 
   return (
-    <>
-      
+    <div>
+     
     <ToastAPI.Provider value={[toast,settoast]}>
+    <AlertToast/>
+    <CookiesProvider>
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />}></Route>
@@ -25,14 +28,15 @@ function App() {
           <Route path='signup' element={<Signup />}></Route>
           <Route path='password' element={<ForgotPass />}></Route>
         </Route>
-        <Route path='/app'>
-          <Route path="dash" element={<Dashboard/>}/>
+        <Route path='/app/*' element={<Dashboard/>}>
+          
           
         </Route>
       </Routes>
     </BrowserRouter>
+    </CookiesProvider> 
     </ToastAPI.Provider>
-    </>
+    </div>
   )
 }
 

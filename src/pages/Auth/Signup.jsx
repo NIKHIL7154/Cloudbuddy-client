@@ -2,41 +2,43 @@
 import SignupImg from '../../assets/signup-girl.png'
 import { useContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { isValidEmail } from '../../helpers/TextValidators';
 import AlertToast from '../../components/AlertToast';
 import { ToastAPI } from '../../contexts/ToastContext';
 import GoogleButton from './components/GoogleButton';
 import { HOST } from '../../helpers/Variables';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const Signup = () => {
 	const [formdata, setformdata] = useState({ email: "", pass: "",name:"" });
 
 	const Toast=useContext(ToastAPI)[1];
-
+	const navigate = useNavigate()
 	const handleInput = (e) => {
 		const { name, value } = e.target
 		setformdata((prevState) => ({ ...prevState, [name]: value }))
 	}
+	const [cookies, setCookie, removeCookie] = useCookies(['accesstoken']);
 
 	const handleForm =async ()=>{
 		if(isValidEmail(formdata.email) && formdata.pass.length>=6 && formdata.name.length>=4){
-			const payload={
-				name:formdata.name,
-				email:formdata.email,
-				pass:formdata.pass
+			const payload=formdata
+			const signupResult = await axios.post(HOST+"/signup",payload)
+			if(signupResult.status!=200){
+				Toast({message:"Error while creating account",state:true,type:"error"})
+				console.log(signupResult.data)
+				return
 			}
+			Toast({message:"User created successfully",state:true,type:"success"})
+			console.log(signupResult)
+			setCookie("accesstoken",signupResult.data.token,{path:"/"})
+			navigate("/app")
+			return
+			
 
-			const raw= await fetch(HOST+"/signup",{
-				method:"POST",
-				headers:{
-					"content-type":"application/json"
-				},
-				body:JSON.stringify(payload)
-			})
-			console.log(raw)
-			const data =await raw.json()
-			console.log(data)
+
 		}else{
 			Toast({message:"Enter valid details",state:true,type:"error"})
 		}

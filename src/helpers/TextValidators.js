@@ -3,4 +3,7 @@ function isValidEmail(email) {
     console.log(email)
     return emailRegex.test(email);
 }
+
+
+
 export {isValidEmail}

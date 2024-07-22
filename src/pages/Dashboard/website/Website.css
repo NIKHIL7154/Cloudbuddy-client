@@ -1,0 +1,7 @@
+.website-tab-table th,td{
+    border: 2px solid black;
+    
+}
+.website-tab-table{
+    width: 80%;
+}

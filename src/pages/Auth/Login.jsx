@@ -1,57 +1,70 @@
-
 import LoginImg from '../../assets/login-page-boy.png'
-import { useContext, useState } from 'react';
-
-import { Link} from 'react-router-dom';
-import AlertToast from '../../components/AlertToast';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate} from 'react-router-dom';
 import { ToastAPI } from '../../contexts/ToastContext';
 import { isValidEmail } from '../../helpers/TextValidators';
 import GoogleButton from './components/GoogleButton';
 import LoginForm from './components/LoginForm';
 import { HOST } from '../../helpers/Variables';
+import { useCookies } from 'react-cookie';
+import axios from 'axios';
 
 
 const Login = () => {
-	const Toast=useContext(ToastAPI)[1];
 
+	const Toast=useContext(ToastAPI)[1];
+	const [cookies, setCookie, removeCookie] = useCookies(['accesstoken']);
 	const [formdata, setformdata] = useState({
         email: "",
-        pass: "",
-        check: false,
+        pass: ""
     });
+	const navigate= useNavigate()
 
-	function makeToast(value){
-		Toast({message:value,state:true,type:"error"})
-	}
-	async function handleLogin(){
-		const payload={
-			email:formdata.email,
-			pass:formdata.pass
+	async function validateToken(){
+		if(cookies.accesstoken){
+			const tokenVerification= await axios.post(HOST+"/verifyAccessToken",{},{headers:{
+				Authorization:"Bearer "+cookies.accesstoken
+			}})
+			if(tokenVerification.status===200){
+				navigate("/app")
+				return
+			}
+			removeCookie("accesstoken")
+			Toast({message:"Your session has been expired. Please login again",state:true,type:"error"})
 		}
-		const raw= await fetch(HOST+"/login",{
-			method:"POST",
-			headers:{
-				"content-type":"application/json"
-			},
-			body:JSON.stringify(payload)
-		})
+	}
+	useEffect(() => {
+		validateToken()
 		
-		const data= await raw.json()
-		console.log(data)
-		if(raw.status==200){
-			console.log("Login success")
-		}else{
-			makeToast(data.message)
+	}, []);
+	
+	async function handleLogin(){
+		const userLoginResult =await axios.post(HOST+"/login",{
+			email: formdata.email,
+			pass: formdata.pass,
+		})
+		if(userLoginResult.status != 200){
+			Toast({message:"Login failed. Please check your credentials.",state:true,type:"error"})
+			console.log(userLoginResult.data)
+			return
 		}
+		//login is successfull
+		console.log(userLoginResult.data)
+		Toast({message:"Login successfull",state:true,type:"success"})
+		setCookie("accesstoken",userLoginResult.data.token,{path:"/"})
+		navigate("/app")
+
+
 	}
 
-	const handleSignin=()=>{
+	const handleInputValidator=()=>{
 		if(!isValidEmail(formdata.email)){
-			makeToast("Enter valid email")
+			Toast({message:"Enter valid email",state:true,type:"error"})
 		}else if(formdata.pass.length>=6){
+			//input data validated login process started
 			handleLogin()
 		}else{
-			makeToast("Enter valid password")
+			Toast({message:"Enter valid password",state:true,type:"error"})
 		}
 	}
 	return (
@@ -68,13 +81,10 @@ const Login = () => {
 					<LoginForm formdata={formdata} setformdata={setformdata}/>
 					
 					<div className='flx flex-col'>
-						<button onClick={handleSignin} className='btnx w-full my-5 h-[45px] rounded-md'>Sign in</button>
+						<button onClick={handleInputValidator} className='btnx w-full my-5 h-[45px] rounded-md'>Sign in</button>
 						<p className='text-center'>New on our platform? <Link  to="/auth/signup" className='text-blue-600'>Create an account</Link></p>
-
 						<p className='text-center my-2 relative'>OR</p>
-
 						<GoogleButton title="Sign in with Google"/>
-						<AlertToast/>
 
 					</div>
 

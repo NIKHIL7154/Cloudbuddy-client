@@ -11,7 +11,7 @@ export default function AlertToast() {
       return;
     }
 
-    Toast[1]((prevState)=>({prevState,state:false}))
+    Toast[1]((prevState)=>({...prevState,state:false}))
   };
 
   return (
@@ -19,6 +19,7 @@ export default function AlertToast() {
       
       <Snackbar open={Toast[0].state} autoHideDuration={4000} onClose={handleClose}>
         <Alert
+          
           onClose={handleClose}
           severity={Toast[0].type}
           variant="filled"
