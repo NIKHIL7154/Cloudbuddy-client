@@ -1,6 +1,6 @@
 
 
-import './App.css'
+
 import Home from './pages/Home/Home'
 import Login from './pages/Auth/Login'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
@@ -10,19 +10,24 @@ import { useState } from 'react'
 import { ToastAPI } from './contexts/ToastContext'
 import Dashboard from './pages/Dashboard/Dashboard'
 import AlertToast from './components/AlertToast'
-import { CookiesProvider } from 'react-cookie';
+
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import NewHome from './pages/Mainhome/pages/home'
+
+
 function App() {
   const [toast, settoast] = useState({message:"",state:false,type:"error"})
 
   return (
     <div>
-     
+     <GoogleOAuthProvider clientId='723710557641-c7emto3hq744cshil13hv1a8c9pi02hl.apps.googleusercontent.com'>
     <ToastAPI.Provider value={[toast,settoast]}>
     <AlertToast/>
-    <CookiesProvider>
+    
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Home />}></Route>
+        <Route path='/' element={<Home/>}></Route>
+        <Route path='/dems' element={<NewHome/>}></Route>
         <Route path='/auth'>
           <Route path='login' element={<Login />}></Route>
           <Route path='signup' element={<Signup />}></Route>
@@ -34,8 +39,9 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-    </CookiesProvider> 
+     
     </ToastAPI.Provider>
+    </GoogleOAuthProvider>
     </div>
   )
 }

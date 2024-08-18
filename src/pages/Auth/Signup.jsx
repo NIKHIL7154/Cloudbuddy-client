@@ -4,43 +4,44 @@ import { useContext, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import { Link, useNavigate } from 'react-router-dom';
 import { isValidEmail } from '../../helpers/TextValidators';
-import AlertToast from '../../components/AlertToast';
 import { ToastAPI } from '../../contexts/ToastContext';
 import GoogleButton from './components/GoogleButton';
 import { HOST } from '../../helpers/Variables';
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 
 const Signup = () => {
-	const [formdata, setformdata] = useState({ email: "", pass: "",name:"" });
-
-	const Toast=useContext(ToastAPI)[1];
+	const [formdata, setformdata] = useState({ email: "", pass: "", name: "" });
+	const Toast = useContext(ToastAPI)[1];
 	const navigate = useNavigate()
 	const handleInput = (e) => {
 		const { name, value } = e.target
 		setformdata((prevState) => ({ ...prevState, [name]: value }))
 	}
-	const [cookies, setCookie, removeCookie] = useCookies(['accesstoken']);
 
-	const handleForm =async ()=>{
-		if(isValidEmail(formdata.email) && formdata.pass.length>=6 && formdata.name.length>=4){
-			const payload=formdata
-			const signupResult = await axios.post(HOST+"/signup",payload)
-			if(signupResult.status!=200){
-				Toast({message:"Error while creating account",state:true,type:"error"})
-				console.log(signupResult.data)
+
+	const handleForm = async () => {
+		if (isValidEmail(formdata.email) && formdata.pass.length >= 6 && formdata.name.length >= 4) {
+			const payload = formdata
+			try {
+				const signupResult = await axios.post(HOST + "/signup", payload)
+				if (signupResult.status != 200) {
+					Toast({ message: signupResult.data.message, state: true, type: "success" })
+					return;
+				}
+				Toast({ message: "User created successfully", state: true, type: "success" })
+				
+				Cookies.set("userToken", signupResult.data.userToken)
+				navigate("/app")
+				return
+			} catch (error) {
+				Toast({ message: error.response.data.message, state: true, type: "error" })
+				console.log(error.response.data)
 				return
 			}
-			Toast({message:"User created successfully",state:true,type:"success"})
-			console.log(signupResult)
-			setCookie("accesstoken",signupResult.data.token,{path:"/"})
-			navigate("/app")
-			return
-			
 
-
-		}else{
-			Toast({message:"Enter valid details",state:true,type:"error"})
+		} else {
+			Toast({ message: "Enter valid details", state: true, type: "error" })
 		}
 	}
 
@@ -58,7 +59,7 @@ const Signup = () => {
 						<TextField margin='normal' autoComplete='name' onChange={handleInput} className='w-full' color='primary' id="outlined-basic" name="name" label="Name" variant="outlined" />
 						<span className='m-2'></span>
 						<TextField type='email' autoComplete='email' onChange={handleInput} className='w-full' color='primary' id="outlined-basic" name="email" label="Email" variant="outlined" />
-                        <span className='m-2'></span>
+						<span className='m-2'></span>
 						<TextField onChange={handleInput} className='w-full' color='primary' id="outlined-basic" name="pass" label="Password" variant="outlined" />
 					</form>
 					<div className='flx flex-col'>
@@ -67,13 +68,13 @@ const Signup = () => {
 
 						<p className='text-center my-2 relative'>OR</p>
 
-						<GoogleButton title="Sign up with Google"/>
+						<GoogleButton title="Sign up with Google" />
 
 					</div>
 
 				</div>
 			</div>
-			<AlertToast/>
+
 		</div>
 	)
 }

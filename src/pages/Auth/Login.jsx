@@ -6,14 +6,14 @@ import { isValidEmail } from '../../helpers/TextValidators';
 import GoogleButton from './components/GoogleButton';
 import LoginForm from './components/LoginForm';
 import { HOST } from '../../helpers/Variables';
-import { useCookies } from 'react-cookie';
+import Cookies from 'js-cookie';
 import axios from 'axios';
 
 
 const Login = () => {
 
 	const Toast=useContext(ToastAPI)[1];
-	const [cookies, setCookie, removeCookie] = useCookies(['accesstoken']);
+	
 	const [formdata, setformdata] = useState({
         email: "",
         pass: ""
@@ -21,21 +21,26 @@ const Login = () => {
 	const navigate= useNavigate()
 
 	async function validateToken(){
-		if(cookies.accesstoken){
-			const tokenVerification= await axios.post(HOST+"/verifyAccessToken",{},{headers:{
-				Authorization:"Bearer "+cookies.accesstoken
-			}})
-			if(tokenVerification.status===200){
-				navigate("/app")
-				return
-			}
-			removeCookie("accesstoken")
-			Toast({message:"Your session has been expired. Please login again",state:true,type:"error"})
+		let token=Cookies.get("userToken")
+		if(token){
+			axios.post(HOST+"/verifyAccessToken",{},{headers:{
+				Authorization:"Bearer "+token
+			}}).then((res)=>{
+				if(res.status===200){
+					navigate("/app")
+					return
+				}
+			}).catch((err)=>{
+				console.log(err)
+				Cookies.remove("userToken")
+				Toast({message:"Your session has been expired. Please login again",state:true,type:"error"})
+			})
+			
+			
 		}
 	}
 	useEffect(() => {
 		validateToken()
-		
 	}, []);
 	
 	async function handleLogin(){
@@ -43,6 +48,7 @@ const Login = () => {
 			email: formdata.email,
 			pass: formdata.pass,
 		})
+		
 		if(userLoginResult.status != 200){
 			Toast({message:"Login failed. Please check your credentials.",state:true,type:"error"})
 			console.log(userLoginResult.data)
@@ -51,7 +57,7 @@ const Login = () => {
 		//login is successfull
 		console.log(userLoginResult.data)
 		Toast({message:"Login successfull",state:true,type:"success"})
-		setCookie("accesstoken",userLoginResult.data.token,{path:"/"})
+		Cookies.set("userToken",userLoginResult.data.token)
 		navigate("/app")
 
 

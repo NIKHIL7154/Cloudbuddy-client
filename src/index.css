@@ -26,7 +26,11 @@
         background-image: linear-gradient(#85C5FF,rgb(235, 253, 255));
     }
     .shade{
-        box-shadow: 3px 1px 10px 0.1px rgba(0, 0, 0, 0.562);
+        box-shadow: 1px 1px 10px 0.1px rgba(0, 0, 0, 0.562);
+    }
+    .shad{
+        box-shadow: 2px 2px 0px 0.8px black;
+        
     }
     .btnx{
         background-color: black;

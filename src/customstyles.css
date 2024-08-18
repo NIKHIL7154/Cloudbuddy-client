@@ -1,0 +1,41 @@
+.list-item-sidebar{
+    transition: 0.3s;
+    padding: 5px 9px;
+}
+
+.list-item-sidebar:hover{
+    transform: scale(1.1);
+}
+.highlight-list{
+   
+   background-color: rgb(174, 254, 95);
+   border-radius: 20px;
+   
+}
+
+.navbar-shadow{
+    margin: 5px;
+    border-radius: 20px;
+    border: 1px solid rgb(200, 195, 195);
+}
+
+.nav-profile-dropdown:hover{
+    background-color: aquamarine;
+}
+
+.nav-profile-image:hover{
+    background-color: rgb(127, 255, 238);
+}
+.custom-scroll-bar::-webkit-scrollbar{
+    width: 5px;
+    
+}
+.custom-scroll-bar::-webkit-scrollbar-track{
+    width: 5px;
+    border-radius: 20px;
+    background-color: rgb(237, 233, 233);
+}
+.custom-scroll-bar::-webkit-scrollbar-thumb{
+    background-color: red;
+    border-radius: 30px;
+}

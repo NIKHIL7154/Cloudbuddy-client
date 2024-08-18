@@ -1,16 +1,33 @@
 import axios from "axios"
 import './Website.css'
 import WebsiteDetails from "./comps/WebsiteDetails"
-import { useState,useEffect } from "react"
+import { useState, useEffect } from "react"
+import WebsiteCard from "./comps/WebsiteCard"
+import { HOST } from "../../../helpers/Variables"
+import { getTokenValue, isValidToken } from "../../../helpers/SecureCheck"
+import { useNavigate } from "react-router-dom"
+
 const WebsiteList = () => {
-  async function fetch_websites(){
-    const response = await axios.get("http://localhost:4000/websites")
+  const navigate=useNavigate()
+  async function fetch_websites() {
+    if(!isValidToken()){
+      navigate("/auth/login")
+      return;
+    }
+    
+    const response = await axios.get(HOST + "/websites", {headers:{
+      "Authorization": "Bearer " +getTokenValue() ,
+    }})
+    
+    if(response.data.length<1){
+      return
+    }
     setWebsites(response.data)
   }
   useEffect(() => {
     fetch_websites()
     return () => {
-      
+
     };
   }, []);
 
@@ -18,18 +35,19 @@ const WebsiteList = () => {
   return (
     <div className="h-full flex items-center flex-col">
       <div className=" w-full flx">
-      <p className="text-3xl text-center py-4">Your websites</p>
+        <p className="text-3xl text-center py-4">Your websites</p>
 
       </div>
       <div className="w-[90%] border my-2"></div>
-      <div className="w-full flex justify-center gap-3 overflow-y-auto">
-        {Websites?
-        <div className="w-[80%]">
-          {Websites.map((item)=>{
-            return <WebsiteDetails key={item.id} item={item} />
-          })}
-      
-      </div>:<p>You haven&apos;t created any website yet.</p>}
+      <div className={`w-[90%] gap-4 px-4 py-2 ${Websites?"grid grid-cols-4":"flx"} custom-scroll-bar overflow-y-auto`}>
+
+        {Websites ?
+          <>
+            {Websites.map((item) => {
+              return <WebsiteCard key={item.id} item={item} />
+            })}
+
+          </> : <p>You haven&apos;t created any website yet. Try creating your first website😊</p>}
       </div>
     </div>
   )
