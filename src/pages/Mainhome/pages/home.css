@@ -696,6 +696,26 @@
 .home-icon26:hover {
   fill: var(--dl-color-orange-default);
 }
+
+.line-behind {
+  position: relative;
+  display: inline-block;
+  padding: 0 20px; /* Add padding to create space around the text */
+  background-color: white; /* Background color to hide the line behind the text */
+  z-index: 1;
+}
+
+.line-behind::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: lightgray;
+  z-index: -1;
+}
+
 @media(max-width: 1200px) {
   .home-text35 {
     padding: 60px;

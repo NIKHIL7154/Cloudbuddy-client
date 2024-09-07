@@ -13,7 +13,7 @@ const TestimonialsCard = (props) => {
           src={props.imageSrc1}
           className="testimonials-card-image"
         />
-        <div className="testimonials-card-container3">
+        <div className="testimonials-card-container3 p-2">
           <span className="testimonials-card-text">{props.text}</span>
         </div>
       </div>

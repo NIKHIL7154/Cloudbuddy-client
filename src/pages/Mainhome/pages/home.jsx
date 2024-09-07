@@ -10,30 +10,29 @@ import StatsCard from '../components/stats-card'
 import LinkIconButton from '../components/link-icon-button'
 import './home.css'
 import './mystyle.css'
+import './price.css'
+import { Link } from 'react-router-dom'
 const NewHome = (props) => {
   return (
     <div className="home-container10">
-      <Helmet>
-        <title>Landify</title>
-        <meta property="og:title" content="Landify" />
-      </Helmet>
+      
       <div data-role="Header" className="home-header-container">
         <header className="home-header">
           <div className="home-logo1">
-            <span className="home-logoname1">Cloudbuddy</span>
+            <span className="home-logoname1 fonte">Cloudbuddy</span>
           </div>
           <div className="home-menu1">
-            <span className="home-text10">About</span>
-            <span className="home-text11">Products</span>
-            <span className="home-text12">Pricing</span>
-            <span className="home-text13">Blog</span>
+            <span className="home-text10 cursor-pointer"><a href="#">Home</a></span>
+            <span className="home-text11 cursor-pointer"><a href="#features">Features</a></span>
+            <span className="home-text12 cursor-pointer"><a href="#pricing">Pricing</a></span>
+            <span className="home-text13 cursor-pointer"><a href="#achieved">Achievements</a></span>
           </div>
           <div className="home-container11">
             <div className="home-container12">
               <StoreBanner></StoreBanner>
             </div>
             <PrimaryButton
-              rootClassName="primary-buttonroot-class-name"
+              rootclassName="primary-buttonroot-className-name"
               button="Go to Dashboard"
             ></PrimaryButton>
           </div>
@@ -136,12 +135,12 @@ const NewHome = (props) => {
         <div className="home-blur-background"></div>
         <div className="home-hero">
           <div className="home-container18">
-            <h1 className="home-text24 Headline1">
+            <h1 className="home-text24 Headline1 fonte">
               <span>Make your website</span>
               <br></br>
               <span>Live in one click.</span>
             </h1>
-            <PrimaryButton button="Get Started"></PrimaryButton>
+            <PrimaryButton rootClassName="m-auto text-2xl w-[200px]" button="Get Started"></PrimaryButton>
           </div>
           <img
             alt="image"
@@ -162,8 +161,8 @@ const NewHome = (props) => {
         <img alt="image" src="/left.svg" className="home-left" />
         <img alt="image" src="/right.svg" className="home-right" />
       </div>
-      <div className="home-features1">
-        <h2 className="Headline2 home-text28">Why CloudBuddy?</h2>
+      <div id='features' className="home-features1">
+        <h2 className="home-text28 font-sans text-5xl font-bold mb-12">Why CloudBuddy?</h2>
         <div className="home-features2">
           <FeatureCard
             cardTitle="Free forever"
@@ -235,24 +234,110 @@ const NewHome = (props) => {
           ></FeatureCard>
         </div>
       </div>
-      <h1 className="home-text35">What users say?</h1>
+      <h1 className="home-text35 text-5xl my-8 mt-16 font-bold font-sans">What users say?</h1>
       <div className="home-container19">
         <div className="home-container20">
           <TestimonialsCard
-            rootClassName="testimonials-cardroot-class-name"
+            rootclassName="testimonials-cardroot-className-name"
             text="I was surfing the web for almost 5 hours for a reliable and free web hosting provider and finally landed here. I think i do not need to surf anymore, i found my destination. "
             text1="Floyd Miles"
           ></TestimonialsCard>
         </div>
         <div className="home-container21">
           <TestimonialsCard
-            rootClassName="testimonials-cardroot-class-name1"
-            text="Hosting a site online was never been so easy. With cloudbuddy i have already hosted more than 20 sites and all are working fine. My customers never complained about the downtime of my website.\n"
+            rootclassName="testimonials-cardroot-className-name1"
+            text="Hosting a site online was never been so easy. With cloudbuddy i have already hosted more than 20 sites and all are working fine. My customers never complained about the downtime of my website."
           ></TestimonialsCard>
         </div>
       </div>
-      <div className="home-achievements">
-        <div className="home-container22">
+
+
+      
+<section id='pricing' className="plans__container">
+  <div className="plans">
+    <div className="plansHero">
+      <h1 className="plansHero__title">Simple, transparent pricing</h1>
+      <p className="plansHero__subtitle">No contracts. No suprise fees.</p>
+    </div>
+    <div className="planItem__container">
+      
+      <div className="planItem planItem--free">
+
+        <div className="card">
+          <div className="card__header">
+            <div className="card__icon symbol symbol--rounded"></div>
+            <h2>Free</h2>
+          </div>
+          <div className="card__desc">The plan that covers the most.</div>
+        </div>
+
+        <div className="price">$0<span>/ month</span></div>
+
+        <ul className="featureList">
+          <li>Unlimited Websites</li>
+          <li>100% Uptime</li>
+          <li>No Size Limit</li>
+          <li>CDN Enabled</li>
+          <li className="disabled">Custom Domain</li>
+        </ul>
+
+        <Link to="/auth/login"><button className="button">Get Started</button></Link>
+      </div>
+      
+      {/* <div className="planItem planItem--pro">
+        <div className="card">
+          <div className="card__header">
+            <div className="card__icon symbol"></div>
+            <h2>Pro</h2>
+            <div className="card__label label">Best Value</div>
+          </div>
+          <div className="card__desc">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris</div>
+        </div>
+
+        <div className="price">$18<span>/ month</span></div>
+
+        <ul className="featureList">
+          <li>2 links</li>
+          <li>Own analytics platform</li>
+          <li>Chat support</li>
+          <li className="disabled">Mobile application</li>
+          <li className="disabled">Unlimited users</li>
+        </ul>
+
+        <button className="button button--pink">Get Started</button>
+      </div> */}
+      
+      {/* <div className="planItem planItem--entp">
+        <div className="card">
+          <div className="card__header">
+            <div className="card__icon"></div>
+            <h2>Enterprise</h2>
+          </div>
+          <div className="card__desc">Nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor</div>
+        </div>
+
+        <div className="price">Lets Talk</div>
+
+        <ul className="featureList">
+          <li>2 links</li>
+          <li>Own analytics platform</li>
+          <li>Chat support</li>
+          <li>Mobile application</li>
+          <li>Unlimited users</li>
+          <li>Customize Panel</li>
+        </ul>
+
+        <button className="button button--white">Get Started</button>
+      </div> */}
+      
+
+    </div>
+  </div>
+</section>
+
+
+      <div id='achieved' className="home-achievements">
+        <div className="home-container22 text-2xl">
           <h2 className="home-text36">Achieved till now</h2>
           <span className="home-text37">
             With our super powers we have reached this
@@ -316,13 +401,13 @@ const NewHome = (props) => {
         </div>
       </div>
       <div className="home-feature1">
-        <div className="home-container26">
+        <div className="home-container26 rounded-[50px]">
           <img
             alt="image"
             src="https://i.pinimg.com/originals/53/e4/1e/53e41e4bb6bba5a24deebf3617409715.gif"
-            image_src="dab1286f-0104-48fa-bd7d-135e132129dd"
+            
             loading="lazy"
-            className="home-image3"
+            className="home-image3 rounded-[30px]"
           />
         </div>
         <div className="home-container27">
