@@ -24,7 +24,7 @@ const Navbar = () => {
           <ul className="flex gap-10 text-xl">
 
             <li onClick={handleItemClick} className={`${activeItem=="home"?'highlight-list':''} list-item-sidebar`}>
-              <Link to="home" name="home">Home</Link>
+              <Link to="" name="home">Home</Link>
 
             </li>
             <li onClick={handleItemClick} className={`${activeItem=="websites"?'highlight-list':''} list-item-sidebar`}>

@@ -5,7 +5,11 @@ export default {
       "./src/**/*.{js,ts,jsx,tsx}",
     ],
     theme: {
-      extend: {},
+      extend: {
+        filter:{
+          'hue-rotate':'hue-rotate(${deg}deg)'
+        }
+      },
     },
     
     plugins: [],

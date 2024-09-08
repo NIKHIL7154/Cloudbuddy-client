@@ -6,6 +6,7 @@ import WebsiteCard from "./comps/WebsiteCard"
 import { HOST } from "../../../helpers/Variables"
 import { getTokenValue, isValidToken } from "../../../helpers/SecureCheck"
 import { useNavigate } from "react-router-dom"
+import CreationCard from "../../../components/CreationCard"
 
 const WebsiteList = () => {
   const navigate=useNavigate()
@@ -39,12 +40,13 @@ const WebsiteList = () => {
 
       </div>
       <div className="w-[90%] border my-2"></div>
-      <div className={`w-[90%] gap-4 px-4 py-2 ${Websites?"grid grid-cols-4":"flx"} custom-scroll-bar overflow-y-auto`}>
+      <div className={`w-[90%] gap-0 px-4 py-2 ${Websites?"grid grid-cols-4 h-screen":"flx"} custom-scroll-bar overflow-y-auto`}>
 
         {Websites ?
           <>
             {Websites.map((item) => {
-              return <WebsiteCard key={item.id} item={item} />
+              //return <WebsiteCard key={item.id} item={item} />
+              return <CreationCard key={item.id} item={item}/>
             })}
 
           </> : <p>You haven&apos;t created any website yet. Try creating your first website😊</p>}
