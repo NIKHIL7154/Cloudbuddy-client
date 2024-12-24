@@ -30,7 +30,7 @@
 }
  .cards--card:hover {
 	 background-position: 80% 20%;
-	 transform: rotate3d(0.5, 1, 0, 30deg);
+	 
 }
  .cards--content-box {
 	 height: 100%;
@@ -72,10 +72,42 @@
 	 color: #08f;
 	 padding-top: 15px;
 	 transition: all 0.5s ease-in-out;
+	 
 	 transform: translate3d(0px, 0px, 20px);
 }
  .cards--content-box .cards--see-more:hover {
 	 transform: translate3d(0px, 0px, 50px);
+	 transform: scale(1.1);
+}
+
+
+.redeploybtn:hover::after{
+	content: "Deploy the project with latest commit in main branch.";
+	font-size: 12px;
+	color: rgb(0, 0, 0);
+	width: max-content;
+	font-weight: 500;
+	height: fit-content;
+	position: absolute;
+	bottom: -40px;
+	text-transform: none;
+	left: -100px;
+	background-color: rgb(0, 255, 140);
+	padding: 5px;
+	border-radius: 5px;
+	white-space: pre-line;
+	animation: fadeIn 0.5s ease-in-out;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
  .cards--date-box {
 	 position: absolute;

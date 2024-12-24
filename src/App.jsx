@@ -15,18 +15,20 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import NewHome from './pages/Mainhome/pages/home'
 
 
+
 function App() {
   const [toast, settoast] = useState({message:"",state:false,type:"error"})
-
+  const gid= import.meta.env.VITE_META_GOOGLE_CLIENT
   return (
     <div>
-     <GoogleOAuthProvider clientId='723710557641-c7emto3hq744cshil13hv1a8c9pi02hl.apps.googleusercontent.com'>
+     <GoogleOAuthProvider clientId={gid}>
     <ToastAPI.Provider value={[toast,settoast]}>
     <AlertToast/>
     
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<NewHome/>}></Route>
+        
         <Route path='/dems' element={<Home/>}></Route>
         <Route path='/auth'>
           <Route path='login' element={<Login />}></Route>

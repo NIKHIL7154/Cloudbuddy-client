@@ -1,10 +1,11 @@
 import Cookies from 'js-cookie';
 
 
-export async function isValidToken(){
-    let token=  Cookies.get("userToken")
-    console.log(token)
-    if(token?.length>2){
+export function isValidToken(){
+    let token= Cookies.get("userToken")
+    
+    if(token && token.length>0){
+        console.log("Token is valid")
         return true;
     }
     return false;
@@ -12,4 +13,8 @@ export async function isValidToken(){
 
 export function getTokenValue() {
     return Cookies.get("userToken")
+}
+
+export function removeToken(){
+    Cookies.remove("userToken")
 }

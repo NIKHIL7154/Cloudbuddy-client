@@ -3,19 +3,19 @@ import Cookies from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
 
 import { useState } from "react";
-const Navbar = () => {
+import useRouteName from "../../helpers/hooks/useRouteName";
+const Navbar = (props) => {
+  const {userdata}=props;
   const [navMenu,setnavMenu]=useState(false)
-  const [activeItem, setactiveItem] = useState("");
+  const activeItem=useRouteName();
   const navigate = useNavigate();
+
   const handleLogout = () => {
     Cookies.remove('userToken')
     navigate("/")
   }
-  const handleItemClick=(event)=>{
-    
-    setactiveItem(event.target.name)
-    
-  }
+  
+  
   return (
     <div className="flx  w-full h-[10%] ">
       <div className="flx h-[85%] w-full navbar-shadow !justify-between px-4">
@@ -23,22 +23,22 @@ const Navbar = () => {
         <div className="">
           <ul className="flex gap-10 text-xl">
 
-            <li onClick={handleItemClick} className={`${activeItem=="home"?'highlight-list':''} list-item-sidebar`}>
-              <Link to="" name="home">Home</Link>
+            <li className={`${activeItem==""?'highlight-list':''} list-item-sidebar`}>
+              <Link to="" name="">Home</Link>
 
             </li>
-            <li onClick={handleItemClick} className={`${activeItem=="websites"?'highlight-list':''} list-item-sidebar`}>
+            <li className={`${activeItem=="websites"?'highlight-list':''} list-item-sidebar`}>
               <Link to="websites" name="websites">Websites</Link>
 
             </li>
-            <li onClick={handleItemClick} className={`${activeItem=="upload"?'highlight-list':''} list-item-sidebar`}>
-              <Link to="upload" name="upload">Upload</Link>
+            <li className={`${activeItem=="create"?'highlight-list':''} list-item-sidebar`}>
+              <Link to="create" name="create">Create</Link>
 
             </li>
           </ul>
         </div>
         <div className="relative h-full gap-3 flx">
-          <div  className="text-xl cursor-pointer">Hi, Nikhil</div>
+          <div  className="text-xl">Hi {userdata.name}</div>
 
           <img onClick={()=>setnavMenu(!navMenu)} className="h-[80%] p-[4px] nav-profile-image cursor-pointer rounded-[50%]" src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-user-circle-icon.png" alt=""/>
 

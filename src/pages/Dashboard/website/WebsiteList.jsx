@@ -1,15 +1,17 @@
 import axios from "axios"
-import './Website.css'
-import WebsiteDetails from "./comps/WebsiteDetails"
+
+
 import { useState, useEffect } from "react"
 import WebsiteCard from "./comps/WebsiteCard"
 import { HOST } from "../../../helpers/Variables"
 import { getTokenValue, isValidToken } from "../../../helpers/SecureCheck"
 import { useNavigate } from "react-router-dom"
-import CreationCard from "../../../components/CreationCard"
+//import CreationCard from "../../../components/CreationCard"
 
 const WebsiteList = () => {
+  
   const navigate=useNavigate()
+  
   async function fetch_websites() {
     if(!isValidToken()){
       navigate("/auth/login")
@@ -20,19 +22,17 @@ const WebsiteList = () => {
       "Authorization": "Bearer " +getTokenValue() ,
     }})
     
-    if(response.data.length<1){
-      return
-    }
+    
     setWebsites(response.data)
+  
   }
   useEffect(() => {
+    
     fetch_websites()
-    return () => {
-
-    };
+    
   }, []);
 
-  const [Websites, setWebsites] = useState();
+  const [Websites, setWebsites] = useState([]);
   return (
     <div className="h-full flex items-center flex-col">
       <div className=" w-full flx">
@@ -40,16 +40,16 @@ const WebsiteList = () => {
 
       </div>
       <div className="w-[90%] border my-2"></div>
-      <div className={`w-[90%] gap-0 px-4 py-2 ${Websites?"grid grid-cols-4 h-screen":"flx"} custom-scroll-bar overflow-y-auto`}>
+      <div className={`w-[90%] gap-0 px-4 py-2 ${Websites.length>0?"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 h-screen gap-4":"flx"} custom-scroll-bar overflow-y-auto`}>
 
-        {Websites ?
+        {Websites.length>0 ?
           <>
-            {Websites.map((item) => {
-              //return <WebsiteCard key={item.id} item={item} />
-              return <CreationCard key={item.id} item={item}/>
+            {Websites.map((item,index) => {
+              return <WebsiteCard key={index} item={item} cb={fetch_websites} />
+              //return <CreationCard key={item.id} item={item}/>
             })}
 
-          </> : <p>You haven&apos;t created any website yet. Try creating your first website😊</p>}
+          </> : <p>No websites to show. Try creating your first website😊</p>}
       </div>
     </div>
   )
