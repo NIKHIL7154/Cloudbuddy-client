@@ -6,13 +6,13 @@ export async function createPostRequest(endpoint, payload) {
     return new Promise((res, rej) => {
         (async () => {
             if (!isValidToken()) {
-                console.log("createPostRequest Promise failed no valid token found")
+                console.log("PostRequest Promise failed no valid token found")
                 rej({ code: 401, message: "No valid token found" })
                 return
             }
             try {
                 const token = getTokenValue()
-                console.log("toen " + token)
+                
                 const response = await axios.post(HOST + endpoint, payload, { headers: { Authorization: "Bearer " + token } })
                 res({ code: response.status, data: response.data })
                 //res({ code: 200, data: {Urls:["https://www.google.com","https://www.facebook.com"]} })
@@ -23,7 +23,7 @@ export async function createPostRequest(endpoint, payload) {
                 } else {
                     rej({ code: 500, message: "Some error has been occured on our side" })
                 }
-                console.log("createPostRequest Promise failed " + error)
+                console.log("PostRequest Promise failed " + error)
             }
         })()
 
@@ -38,13 +38,13 @@ export async function createGetRequest(endpoint) {
     return new Promise((res, rej) => {
         (async () => {
             if (!isValidToken()) {
-                console.log("createGetRequest Promise failed no valid token found")
+                console.log("GetRequest Promise failed no valid token found")
                 rej({ code: 401, message: "No valid token found" })
                 return
             }
             try {
                 const token = getTokenValue()
-                console.log("token " + token)
+                
                 const response = await axios.get(HOST + endpoint, { headers: { Authorization: "Bearer " + token } })
                 res({ code: response.status, data: response.data })
                 //res({ code: 200, data: {Urls:["https://www.google.com","https://www.facebook.com"]} })
@@ -55,7 +55,7 @@ export async function createGetRequest(endpoint) {
                 } else {
                     rej({ code: 500, message: "Some error has been occured on our side" })
                 }
-                console.log("createGetRequest Promise failed " + error)
+                console.log("GetRequest Promise failed " + error)
             }
         })()
 

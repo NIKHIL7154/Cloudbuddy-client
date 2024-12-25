@@ -1,7 +1,7 @@
 
 import Cookies from "js-cookie"
 import { Link, useNavigate } from "react-router-dom"
-
+import { motion } from 'framer-motion';
 import { useState } from "react";
 import useRouteName from "../../helpers/hooks/useRouteName";
 const Navbar = (props) => {
@@ -17,8 +17,9 @@ const Navbar = (props) => {
   
   
   return (
-    <div className="flx  w-full h-[10%] ">
-      <div className="flx h-[85%] w-full navbar-shadow !justify-between px-4">
+    <div className="flx relative  w-full h-[10%]">
+      
+      <div className="flx h-[85%] w-full navbar-shado !justify-between px-4">
         <p className="fonte text-2xl">CloudBuddy</p>
         <div className="">
           <ul className="flex gap-10 text-xl">

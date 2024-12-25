@@ -10,7 +10,7 @@ const useRouteName = () => {
         const intervalRoute=setInterval(() => {
             let curroute=window.location.pathname.split('/').slice(2).join('/') || '';
             if(curroute!=route){
-                console.log('Route:',curroute);
+              
                 route=curroute;
                 setcurRoute(curroute)
             }

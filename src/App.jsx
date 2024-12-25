@@ -19,6 +19,7 @@ import NewHome from './pages/Mainhome/pages/home'
 function App() {
   const [toast, settoast] = useState({message:"",state:false,type:"error"})
   const gid= import.meta.env.VITE_META_GOOGLE_CLIENT
+  
   return (
     <div>
      <GoogleOAuthProvider clientId={gid}>

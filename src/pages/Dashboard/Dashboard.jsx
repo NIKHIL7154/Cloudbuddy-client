@@ -7,6 +7,7 @@ import DashHome from "./DashHome"
 import CreateWebsite from "./upload/CreateWebsite"
 import { useEffect, useState } from "react"
 import { createGetRequest } from "../../helpers/Customs"
+import WelcomePage from "./WelcomePage"
 
 
 
@@ -41,7 +42,7 @@ const Dashboard = () => {
         
         <div className="w-[100%] h-full">
           <Routes>
-            <Route path="/" element={<DashHome/>}></Route>
+            <Route path="/" element={<WelcomePage/>}></Route>
             <Route path="create" element={<CreateWebsite/>}></Route>
             <Route path="websites" element={<WebsiteList/>}></Route>
             
