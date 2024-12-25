@@ -2,6 +2,7 @@ import { useContext, useEffect } from "react";
 import { createPostRequest } from "../../../../helpers/Customs";
 import { useNavigate } from "react-router-dom";
 import { ToastAPI } from "../../../../contexts/ToastContext";
+import { motion } from 'framer-motion';
 
 
 const WebsiteCard = (props) => {
@@ -36,7 +37,9 @@ const WebsiteCard = (props) => {
     return (
 
 
-        <div className="w-[400px] h-[450px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <motion.div
+        variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0 } }}
+        className="w-[400px] h-[450px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div>
                 <img loading="lazy" className="rounded-t-lg mb-[-20px] m-auto h-[250px]" src={`https://doodleipsum.com/500x500/hand-drawn?n=${number}`} /* src="https://doodleipsum.com/700x394/hand-drawn?i=48e97fc8b74cbbbf67cd3ddb6e0bd6b6" */ alt="" />
             </div>
@@ -60,7 +63,7 @@ const WebsiteCard = (props) => {
                     Re-Deploy🔁
                 </button>}
             </div>
-        </div>
+        </motion.div>
 
     )
 }
