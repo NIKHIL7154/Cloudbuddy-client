@@ -51,11 +51,11 @@ const Login = () => {
 		
 		if(userLoginResult.status != 200){
 			Toast({message:"Login failed. Please check your credentials.",state:true,type:"error"})
-			console.log(userLoginResult.data)
+			
 			return
 		}
 		//login is successfull
-		console.log(userLoginResult.data)
+		
 		Toast({message:"Login successfull",state:true,type:"success"})
 		Cookies.set("userToken",userLoginResult.data.token)
 		navigate("/app")
@@ -79,7 +79,7 @@ const Login = () => {
 			<div className="w-0 md:w-[50%] lg:w-[60%] flx h-full bg-[#eef1fa]">
 				<img src={LoginImg} className='h-[75%] lg:h-[95%]' alt="" />
 			</div>
-			<div className="w-[100%] md:w-[50%] lg:w-[40%] h-full flx ">
+			<div className="w-[80%] md:w-[50%] lg:w-[40%] h-full flx ">
 				<div className="w-[350px] md:w-[450px]">
 					<p className='font-bold fonte text-2xl'>CloudBuddy</p>
 					<p className='mt-5 text-lg'>Welcome to Cloudbuddy👋🏻</p>

@@ -11,6 +11,8 @@ const GitProjectUpload = (props) => {
   const navigate = useNavigate()
   const [loadingIcon, setloadingIcon] = useState(Gitupload);
   const [projectStatus, setprojectStatus] = useState("Please wait while i am building your project.😊");
+  
+  
   const [deploymentUrl, setdeploymentUrl] = useState("");
 
   function extractUrlFromString(inputString) {
@@ -26,10 +28,9 @@ const GitProjectUpload = (props) => {
         const eventsource = new EventSource(HOST + '/task/' + taskId)
         eventsource.onmessage = (event) => {
 
-          console.log(event)
-          console.log(`Curdata ${curdata}`)
-          if (event.data == "babu") {
-            setprojectStatus("Deployment finished.")
+          
+          if (event.data == "ended") {
+            setprojectStatus("Deployment process ended.")
             setdeploymentUrl(extractUrlFromString(curdata))
             setloadingIcon(TaskCompleted)
             eventsource.close()
@@ -41,7 +42,7 @@ const GitProjectUpload = (props) => {
         }
         eventsource.onerror = (event) => {
           eventsource.close()
-          console.log(event)
+          
         }
       } catch (error) {
 
@@ -60,19 +61,20 @@ const GitProjectUpload = (props) => {
     };
   }, []);
 
-  const [projectUpdates, setprojectUpdates] = useState("Project is being uploaded");
+  const [projectUpdates, setprojectUpdates] = useState("Project deployment is starting");
   return (
-    <div className='flex items-center flex-col w-full h-full '>
-      <img className='w-[30%] mb-4' src={loadingIcon} alt="" />
+    <div className='flex items-center flex-col w-full h-full p-4'>
+      <img className='w-[300px] md:w-[400px] mb-4' src={loadingIcon} alt="" />
       <p className='text-lg text-center font-semibold mb-2'>{projectStatus}<br></br> <span className='text-center text-sm text-gray-300'>{
-        projectStatus == "Deployment finished." ? "You can now leave this page." :
+        projectStatus == "Deployment process ended." ? "You can now leave this page." :
           "Do not leave or close this page"}</span></p>
 
 
-      <p className='text-lg font-semibold my-5'>{projectUpdates}</p>
+      <p className='text-lg font-semibold my-5'>{projectUpdates}...</p>
 
       {deploymentUrl.includes("nikhilcloud") && <a className='btnx rounded-lg px-2 py-1' href={deploymentUrl} target='_blank'>Visit now</a>}
-      {projectStatus != "Deployment finished." && <LoadingShapes />}
+      {projectStatus == "Deployment process ended." && <a className='mt-4 btnx rounded-lg px-2 py-1' href="/app/websites" target='_parent'>Navigate to webistes</a>}
+      {projectStatus != "Deployment process ended." && <LoadingShapes />}
     </div>
   )
 }

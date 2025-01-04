@@ -23,7 +23,7 @@ function formInputData(formData,setformData,handleWebsiteName){
         websiteName: (
             <input
                 type="text"
-                className="w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                className="w-[80%] md:w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
                 placeholder="Enter website name"
                 value={formData.name}
                 onChange={handleWebsiteName}
@@ -34,7 +34,7 @@ function formInputData(formData,setformData,handleWebsiteName){
     
         projectType: (
             <select
-                className="w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                className="w-[80%] md:w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
                 value={formData.projectType}
                 onChange={(e) =>
                     setformData({
@@ -59,7 +59,7 @@ function formInputData(formData,setformData,handleWebsiteName){
         gitUrl: (
             <input
                 type="text"
-                className="w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                className="w-[80%] md:w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
                 placeholder="Enter git URL"
                 value={formData.gitUrl}
                 onChange={(e) =>
@@ -75,7 +75,7 @@ function formInputData(formData,setformData,handleWebsiteName){
         fileInput: (
             <input
                 type="file"
-                className="w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
+                className="w-[80%] md:w-[40%] border border-gray-300 rounded-lg px-4 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-gray-700"
                 onChange={(e) =>
                     setformData({
                         ...formData,
@@ -86,6 +86,8 @@ function formInputData(formData,setformData,handleWebsiteName){
                 placeholder="Select folder"
                 multiple
                 webkitdirectory="true"
+                directory="true"
+                
             />
         ),
     };

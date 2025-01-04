@@ -9,13 +9,13 @@ const UploadStatus = (props) => {
     }
     
   return (
-    <div className='absolute flx m-0 w-full top-0 left-0 z-10 h-full bg-[#00000054]'>
+    <div className='absolute flx m-0 w-full top-0 left-0 z-10 h-[100vh] bg-[#00000054]'>
         {data.state?
-        <div className="w-[450px] h-[350px] flx flex-col rounded-lg bg-white">
+        <div className="w-[310px] md:w-[450px] h-[300px] md:h-[350px] flx flex-col rounded-lg bg-white">
         <img className='h-[75%]' src="https://cdn.dribbble.com/users/3960415/screenshots/8995365/media/b0b5dddc53e15f8eb666502c9c3cb5d4.gif" alt="" />
-        <p className='text-lg'>Please wait while your website is being created😊</p>
+        <p className='text-lg text-center'>Please wait while your website is being created😊</p>
         </div>:
-        <div className="w-[450px] h-[400px] flx flex-col rounded-lg bg-white">
+        <div className="w-[310px] md:w-[450px] h-[300px] md:h-[350px] overflow-hidden flx flex-col rounded-lg bg-white">
         <img className='h-[70%]' src="https://miro.medium.com/v2/1*CSkLBSd5e9x3-n4kikV9ZA.gif" alt="" />
         <p className='text-lg'>Website created successfully.</p>
         <div className='my-4'>

@@ -17,7 +17,7 @@ export default function AlertToast() {
   return (
     <div>
       
-      <Snackbar open={Toast[0].state} autoHideDuration={4000} onClose={handleClose}>
+      <Snackbar open={Toast[0].state} autoHideDuration={Toast[0].duration || 4000} onClose={handleClose}>
         <Alert
           
           onClose={handleClose}

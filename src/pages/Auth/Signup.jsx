@@ -50,7 +50,7 @@ const Signup = () => {
 			<div className="w-0 lg:w-[60%] flx h-full bg-[#eef1fa]">
 				<img src={SignupImg} className='h-[98%]' alt="" />
 			</div>
-			<div className="w-[100%] lg:w-[40%] h-full flx ">
+			<div className="w-[80%] lg:w-[40%] h-full flx ">
 				<div className="w-[350px] md:w-[450px]">
 					<p className='font-bold fonte text-2xl'>CloudBuddy</p>
 					<p className='mt-5 text-lg'>Adventure starts here🚀</p>

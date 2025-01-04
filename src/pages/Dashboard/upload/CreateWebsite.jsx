@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { ToastAPI } from "../../../contexts/ToastContext";
 import formInputData from "./comps/formInputData";
 import { isValidGitUrl } from "../../../helpers/TextValidators";
@@ -10,6 +10,7 @@ import Lottie from 'lottie-react';
 import { useNavigate } from "react-router-dom";
 import UploadStatus from "./comps/UploadStatus";
 import GitProjectUpload from "./comps/GitProjectUpload";
+import { duration } from "@mui/material";
 
 
 
@@ -27,28 +28,35 @@ const CreateWebsite = () => {
         }
     }
     const Toast = useContext(ToastAPI)[1]
-
+    useEffect(() => {
+        if(formData.projectType=="html"){
+            Toast({ message: "Please select a folder containing your project files. Ensure that you select the root directory containing the index.html file", type: "info", state: true ,duration:6000})
+        }
+        return () => {
+            
+        };
+    }, [formData]);
 
     const formInputs = formInputData(formData, setformData, handleWebsiteName)
 
     const handleCreateWebsite = async () => {
         if (formData.projectType == "html") {
-            setshowLoader(true)
+            
             const res = await verifyFiles(formData.files)
             if (!res) {
                 Toast({ message: "index.html is not present in your selected folder", type: "error", state: true })
                 return
             }
-            console.log(formData.files)
+            setshowLoader(true)
             try {
                 const payload = createPayload(formData.files)
                 const urlResponse = await createPostRequest('/multiupload', { data: payload })
-                console.log(urlResponse)
+                
                 const uploadResult = await uploadFilesRequest(urlResponse.data.Urls, formData.files)
-                console.log(uploadResult)
+                
                 
                 const addWebsiteResult =await createPostRequest("/addwebsite", {data:{ webname: formData.name, webid: urlResponse.data.id }})
-                console.log(addWebsiteResult)
+                
 
                 if (addWebsiteResult.code == 200) {
                     Toast({ message: "Upload success", type: "success", state: true })
@@ -79,8 +87,8 @@ const CreateWebsite = () => {
         setuploadState(true)
     }
     const mainComponent = (<div className='w-full h-full flex items-center justify-start flex-col gap-4 text-2xl'>
-        <Lottie className="h-[40%]" animationData={jsonanimation} loop={true} />
-        <p className="text-center">Start by entering the name of your new website</p>
+        <Lottie className="h-[40%] mt-[-50px] md:mt-2" animationData={jsonanimation} loop={true} />
+        <p className="text-center text-lg md:text-xl">Start by entering the name of your new website</p>
         {showLoader && <UploadStatus data={uplodStateDialog} />}
         {formInputs.websiteName}
         {formData.name.length > 4 && formInputs.projectType}

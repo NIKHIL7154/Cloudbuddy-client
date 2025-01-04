@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const WelcomePage = () => {
     const navigate= useNavigate();
   return (
-    <div className="h-[100%] pt-[10px] bg-white text-black font-sans overflow-hidden relative">
+    <div className="h-full pt-[10px] bg-white text-black font-sans overflow-hidden relative">
       <motion.div 
         initial="hidden" 
         animate="visible" 
@@ -13,17 +13,17 @@ const WelcomePage = () => {
           hidden: { opacity: 0, y: -50 },
           visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.3 } }
         }}
-        className="w-full text-center px-8"
+        className="w-full text-center px-4 md:px-8"
       >
         <motion.img
         variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0 } }}
-        className='mx-auto h-[300px]'
+        className='mx-auto h-[150px] md:h-[300px]'
         src='https://img.freepik.com/premium-vector/welcome-illustration_132971-116.jpg'></motion.img>
         <motion.h1 
           variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0 } }}
-          className="text-5xl md:text-7xl font-bold mb-6"
+          className="text-4xl md:text-7xl font-bold mb-6"
         >
-          Welcome to <span className="text-gray-500">CloudBuddy</span>
+          to <span className="text-gray-500">CloudBuddy</span>
         </motion.h1>
         {/* <motion.p 
           variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0 } }}
@@ -36,7 +36,7 @@ const WelcomePage = () => {
           variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0 } }}
           className="py-6"
         >
-          <h2 className="text-3xl md:text-4xl font-semibold mb-4">
+          <h2 className="text-2xl md:text-4xl font-semibold mb-4">
             <span className="text-gray-500">Announcement:</span> Deploy React & Vite Projects with One Click!
           </h2>
           <p className="text-lg md:text-xl">
@@ -63,31 +63,31 @@ const WelcomePage = () => {
         initial={{ opacity: 0, scale: 0.5 }} 
         animate={{ opacity: 0.2, scale: 1, x: [50, -50], y: [50, -50] }} 
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute top-10 right-10 w-96 h-96 bg-red-400 rounded-full filter blur-3xl opacity-30"
+        className="hidden md:block absolute top-10 right-10 w-96 h-96 bg-red-400 rounded-full filter blur-3xl opacity-30"
       ></motion.div>
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }} 
         animate={{ opacity: 0.2, scale: 1, x: [-50, 50], y: [-50, 50] }} 
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute bottom-10 left-10 w-96 h-96 bg-blue-400 rounded-full filter blur-3xl opacity-30"
+        className="hidden md:block absolute bottom-10 left-10 w-96 h-96 bg-blue-400 rounded-full filter blur-3xl opacity-30"
       ></motion.div>
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }} 
         animate={{ opacity: 0.2, scale: 1, x: [30, -30], y: [-30, 30] }} 
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute top-1/3 left-1/3 w-72 h-72 bg-gray-400 rounded-full filter blur-3xl opacity-30"
+        className="hidden md:block absolute top-1/3 left-1/3 w-72 h-72 bg-gray-400 rounded-full filter blur-3xl opacity-30"
       ></motion.div>
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }} 
         animate={{ opacity: 0.2, scale: 1, x: [40, -40], y: [40, -40] }} 
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute top-20 left-1/4 w-80 h-80 bg-red-300 rounded-full filter blur-3xl opacity-30"
+        className="hidden md:block absolute top-20 left-1/4 w-80 h-80 bg-red-300 rounded-full filter blur-3xl opacity-30"
       ></motion.div>
       <motion.div 
         initial={{ opacity: 0, scale: 0.5 }} 
         animate={{ opacity: 0.2, scale: 1, x: [-40, 40], y: [-40, 40] }} 
         transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
-        className="absolute bottom-20 right-1/4 w-80 h-80 bg-blue-300 rounded-full filter blur-3xl opacity-30"
+        className="hidden md:block absolute bottom-20 right-1/4 w-80 h-80 bg-blue-300 rounded-full filter blur-3xl opacity-30"
       ></motion.div>
     </div>
   );
