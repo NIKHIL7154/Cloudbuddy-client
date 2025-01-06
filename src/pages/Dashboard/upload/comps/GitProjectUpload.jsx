@@ -29,7 +29,7 @@ const GitProjectUpload = (props) => {
         eventsource.onmessage = (event) => {
 
           
-          if (event.data == "ended") {
+          if (event.data == "babu") {
             setprojectStatus("Deployment process ended.")
             setdeploymentUrl(extractUrlFromString(curdata))
             setloadingIcon(TaskCompleted)

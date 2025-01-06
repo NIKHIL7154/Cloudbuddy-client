@@ -57,7 +57,7 @@ const WebsiteList = () => {
               
             })}
 
-      </motion.div>:<p>No websites to show. Try creating your first website😊</p>}
+      </motion.div>:<p className="text-center px-4 md:px-0">No websites to show. Try creating your first website😊</p>}
     </div>
   )
 }
