@@ -48,7 +48,7 @@ const WebsiteCard = (props) => {
                     <h5 className="mb-2 text-lg md:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
                 </div>
                 <p className="mb-1 font-normal text-gray-700 dark:text-gray-400">Created on : {date}</p>
-                <p className="mb-1 text-sm font-normal text-gray-700 dark:text-gray-400">Link : {url} <span className="text-blue-500 font-bold cursor-pointer hover:underline" onClick={handleVisit}>Visit now</span></p>
+                <p className="mb-1 text-sm font-normal text-gray-700 dark:text-gray-400">Link : <span className="text-blue-500 font-bold cursor-pointer hover:underline " onClick={handleVisit}>{url}</span></p>
                 <p className="md:mb-2 font-normal mb-1 text-gray-700 dark:text-gray-400">ID : {id} <br /> Status : {status ? "Active" : "Not Active"}</p>
                 
                 

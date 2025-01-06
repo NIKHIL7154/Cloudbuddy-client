@@ -41,6 +41,7 @@ const GitProjectUpload = (props) => {
 
         }
         eventsource.onerror = (event) => {
+          console.log(event)
           eventsource.close()
           
         }
@@ -70,10 +71,12 @@ const GitProjectUpload = (props) => {
           "Do not leave or close this page"}</span></p>
 
 
-      <p className='text-lg font-semibold my-5'>{projectUpdates}...</p>
+      <p className='text-lg font-semibold my-5 text-center'>{projectUpdates}</p>
 
       {deploymentUrl.includes("nikhilcloud") && <a className='btnx rounded-lg px-2 py-1' href={deploymentUrl} target='_blank'>Visit now</a>}
-      {projectStatus == "Deployment process ended." && <a className='mt-4 btnx rounded-lg px-2 py-1' href="/app/websites" target='_parent'>Navigate to webistes</a>}
+      {projectStatus == "Deployment process ended." && <button className='mt-4 btnx rounded-lg px-2 py-1'onClick={()=>{
+        navigate("/app/websites")
+      }}>Navigate to webistes</button>}
       {projectStatus != "Deployment process ended." && <LoadingShapes />}
     </div>
   )
